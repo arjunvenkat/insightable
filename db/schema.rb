@@ -11,7 +11,25 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150331235527) do
+ActiveRecord::Schema.define(version: 20150401012944) do
+
+  create_table "environments", force: :cascade do |t|
+    t.string   "name"
+    t.text     "desc"
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
+    t.string   "image_file_name"
+    t.string   "image_content_type"
+    t.integer  "image_file_size"
+    t.datetime "image_updated_at"
+  end
+
+  create_table "mission_environments", force: :cascade do |t|
+    t.integer  "mission_id"
+    t.integer  "environment_id"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+  end
 
   create_table "mission_memberships", force: :cascade do |t|
     t.integer  "user_id"
@@ -27,6 +45,13 @@ ActiveRecord::Schema.define(version: 20150331235527) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "mission_procedures", force: :cascade do |t|
+    t.integer  "mission_id"
+    t.integer  "procedure_id"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+  end
+
   create_table "missions", force: :cascade do |t|
     t.date     "date"
     t.string   "company"
@@ -39,6 +64,13 @@ ActiveRecord::Schema.define(version: 20150331235527) do
   create_table "personas", force: :cascade do |t|
     t.string   "name"
     t.text     "goals"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "procedures", force: :cascade do |t|
+    t.string   "name"
+    t.text     "steps"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

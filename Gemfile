@@ -1,5 +1,6 @@
 source 'https://rubygems.org'
 
+gem "paperclip", "~> 4.2"
 gem 'seed_dump'
 gem 'bootstrap-sass'
 gem 'font-awesome-sass', '4.3.1'

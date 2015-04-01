@@ -1,0 +1,20 @@
+<div class="page-header">
+  <%= link_to mission_procedures_path, :class => 'btn btn-default' do %>
+    <span class="glyphicon glyphicon-list-alt"></span>
+    Back
+  <% end %>
+  <%= link_to edit_mission_procedure_path(@mission_procedure), :class => 'btn btn-primary' do %>
+    <span class="glyphicon glyphicon-pencil"></span>
+    Edit
+  <% end %>
+  <h1>Show mission_procedure</h1>
+</div>
+
+<dl class="dl-horizontal">
+  <dt>Mission:</dt>
+  <dd><%= @mission_procedure.mission_id %></dd>
+
+  <dt>Procedure:</dt>
+  <dd><%= @mission_procedure.procedure_id %></dd>
+
+</dl>

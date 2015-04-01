@@ -1,0 +1,2 @@
+module MissionProceduresHelper
+end

@@ -1,5 +1,13 @@
 Rails.application.routes.draw do
 
+  resources :mission_environments
+
+  resources :environments
+
+  resources :mission_procedures
+
+  resources :procedures
+
   resources :mission_personas
 
   resources :personas

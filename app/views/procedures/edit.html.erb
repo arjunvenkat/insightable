@@ -1,0 +1,13 @@
+<div class="page-header">
+  <%= link_to procedures_path, :class => 'btn btn-default' do %>
+    <span class="glyphicon glyphicon-list-alt"></span>
+    Back
+  <% end %>
+  <%= link_to @procedure, :class => 'btn btn-primary' do %>
+    <span class="glyphicon glyphicon-info-sign"></span>
+    Show
+  <% end %>
+  <h1>Editing procedure</h1>
+</div>
+
+<%= render 'form' %>

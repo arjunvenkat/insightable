@@ -9,4 +9,6 @@ class Mission < ActiveRecord::Base
 
   has_many :mission_environments, dependent: :destroy
   has_many :environments, through: :mission_environments
+
+  has_many :questions, as: :questionable
 end

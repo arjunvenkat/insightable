@@ -10,6 +10,7 @@ class MissionsController < ApplicationController
   # GET /missions/1
   # GET /missions/1.json
   def show
+    @question = @mission.questions.build
   end
 
   # GET /missions/new

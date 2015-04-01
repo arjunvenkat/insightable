@@ -15,13 +15,13 @@
   <div class="form-group">
     <%= f.label :mission_id, :class => "col-sm-2 control-label" %>
     <div class="col-sm-10">
-      <%= f.number_field :mission_id, :class => "form-control" %>
+      <%= f.collection_select :mission_id, Mission.all, :id, :name, :class => "form-control" %>
     </div>
   </div>
   <div class="form-group">
     <%= f.label :persona_id, :class => "col-sm-2 control-label" %>
     <div class="col-sm-10">
-      <%= f.number_field :persona_id, :class => "form-control" %>
+      <%= f.collection_select :persona_id, Persona.all, :id, :name, :class => "form-control" %>
     </div>
   </div>
   <div class="form-group">

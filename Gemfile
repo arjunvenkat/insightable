@@ -1,5 +1,6 @@
 source 'https://rubygems.org'
 
+gem 'seed_dump'
 gem 'bootstrap-sass'
 gem 'font-awesome-sass', '4.3.1'
 gem 'devise'

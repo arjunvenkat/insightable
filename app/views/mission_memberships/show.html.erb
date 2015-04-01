@@ -1,0 +1,20 @@
+<div class="page-header">
+  <%= link_to mission_memberships_path, :class => 'btn btn-default' do %>
+    <span class="glyphicon glyphicon-list-alt"></span>
+    Back
+  <% end %>
+  <%= link_to edit_mission_membership_path(@mission_membership), :class => 'btn btn-primary' do %>
+    <span class="glyphicon glyphicon-pencil"></span>
+    Edit
+  <% end %>
+  <h1>Show mission_membership</h1>
+</div>
+
+<dl class="dl-horizontal">
+  <dt>User:</dt>
+  <dd><%= @mission_membership.user_id %></dd>
+
+  <dt>Mission:</dt>
+  <dd><%= @mission_membership.mission_id %></dd>
+
+</dl>

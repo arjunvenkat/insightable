@@ -1,5 +1,6 @@
 source 'https://rubygems.org'
 
+gem 'acts_as_list'
 gem "paperclip", "~> 4.2"
 gem 'seed_dump'
 gem 'bootstrap-sass'

@@ -1,0 +1,93 @@
+<div class="page-header">
+  <h1>
+    Backlog Items
+    <%= link_to icon('plus'), new_backlog_item_path, class: "btn btn-lg btn-success" %>
+  </h1>
+</div>
+
+<!-- Responsive, Isotope-based layout example -->
+
+<div class="row">
+  <div class="col-xs-12">
+    <input type="text" id="quicksearch" placeholder="Search Backlog items (start typing)" class="form-control">
+  </div>
+</div>
+
+<hr>
+
+<div class="row isotope-container">
+<% @backlog_items.each do |backlog_item| %>
+  <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 isotope-item">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">Backlog Item #<%= backlog_item.id %></h3>
+      </div>
+      <div class="panel-body">
+        <dl>
+          <dt>Backlog</dt>
+          <dd><%= backlog_item.backlog_id %></dd>
+
+          <dt>Question</dt>
+          <dd><%= backlog_item.question_id %></dd>
+
+          <dt>Position</dt>
+          <dd><%= backlog_item.position %></dd>
+
+          <dt>Assigned to</dt>
+          <dd><%= backlog_item.assigned_to %></dd>
+
+        </dl>
+        <div class="btn-group btn-group-justified">
+          <%= link_to icon('search-plus'), backlog_item, class: "btn btn-primary" %>
+
+          <%= link_to icon('edit'), edit_backlog_item_url(backlog_item), class: "btn btn-warning" %>
+
+          <%= link_to icon('trash-o'), backlog_item, method: :delete, data: { confirm: "Do you really want to delete this backlog_item?" }, class: "btn btn-danger" %>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>
+</div>
+
+<!-- JavaScript for Isotope layout and quicksearch -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/3.1.8/imagesloaded.pkgd.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery.isotope/2.0.0/isotope.pkgd.min.js"></script>
+<script>
+  $(function() {
+    // quick search regex
+    var qsRegex;
+    // init Isotope
+    var $container = $('.isotope-container');
+    $container.imagesLoaded(function() {
+      $container.isotope({
+        itemSelector: '.isotope-item',
+        layoutMode: 'masonry',
+        filter: function() {
+          return qsRegex ? $(this).text().match( qsRegex ) : true;
+        }
+      })
+    });
+    // use value of search field to filter
+    var $quicksearch = $('#quicksearch').keyup( debounce( function() {
+      qsRegex = new RegExp( $quicksearch.val(), 'gi' );
+      $container.isotope();
+    }, 200 ) );
+  });
+  // debounce so filtering doesn't happen every millisecond
+  function debounce( fn, threshold ) {
+    var timeout;
+    return function debounced() {
+      if ( timeout ) {
+        clearTimeout( timeout );
+      }
+      function delayed() {
+        fn();
+        timeout = null;
+      }
+      timeout = setTimeout( delayed, threshold || 100 );
+    }
+  }
+</script>
+
+<!-- End responsive, Isotope-based layout example -->

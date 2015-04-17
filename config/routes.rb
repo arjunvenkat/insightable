@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
 
+  resources :backlog_items
+
+  resources :backlogs
+
   resources :questions
 
   resources :mission_environments

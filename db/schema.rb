@@ -11,7 +11,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150401013527) do
+ActiveRecord::Schema.define(version: 20150401144848) do
+
+  create_table "backlog_items", force: :cascade do |t|
+    t.integer  "backlog_id"
+    t.integer  "question_id"
+    t.integer  "position"
+    t.integer  "assigned_to"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  create_table "backlogs", force: :cascade do |t|
+    t.integer  "mission_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "environments", force: :cascade do |t|
     t.string   "name"

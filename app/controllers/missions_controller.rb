@@ -11,6 +11,7 @@ class MissionsController < ApplicationController
   # GET /missions/1.json
   def show
     @question = @mission.questions.build
+    @insight = @mission.insights.build
   end
 
   # GET /missions/new

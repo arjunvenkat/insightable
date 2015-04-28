@@ -6,4 +6,5 @@ class User < ActiveRecord::Base
 
   has_many :mission_memberships, dependent: :destroy
   has_many :missions, through: :mission_memberships
+  has_many :insights
 end

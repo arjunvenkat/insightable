@@ -7,13 +7,10 @@
     <span class="glyphicon glyphicon-pencil"></span>
     Edit
   <% end %>
-  <h1>Show mission</h1>
+  <h1><%= @mission.name %></h1>
 </div>
 
-<dl class="dl-horizontal">
-  <dt>Name:</dt>
-  <dd><%= @mission.name %></dd>
-
+<dl>
   <dt>Date:</dt>
   <dd><%= @mission.date %></dd>
 
@@ -38,7 +35,46 @@
             <%= link_to "edit", edit_backlog_item_path(item)  %> |
             <%= link_to "destroy", item, method: :delete  %>
           </div>
+          <h4>Insights</h4>
+          <ul class="list-group">
+            <% item.insights.each do |insight| %>
+              <li class="list-group-item">
+                <strong><%= insight.user.name %>:</strong> <%= insight.contents %>
+                <div>
+                  <%= link_to "edit", edit_insight_path(insight)  %> |
+                  <%= link_to "destroy", insight, method: :delete  %>
+                </div>
+              </li>
+            <% end %>
+          </ul>
+          <div class="row">
+            <div class="col-md-12">
+              <h4>Add an insight:</h4>
+              <% insight = item.insights.build %>
+              <%= form_for insight do |f| -%>
+                <% if @question.errors.any? %>
+                  <div class="alert alert-danger alert-dismissable" role="alert">
+                    <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h5><%= pluralize(@question.errors.count, "error") %> prohibited this question from being saved:</h5>
 
+                    <ul>
+                    <% @question.errors.full_messages.each do |msg| %>
+                      <li><%= msg %></li>
+                    <% end %>
+                    </ul>
+
+                  </div>
+                <% end %>
+                <%= f.hidden_field :insightable_id, :class => "form-control" %>
+                <%= f.hidden_field :insightable_type, :class => "form-control" %>
+                <%= f.hidden_field :user_id, value: current_user.id, :class => "form-control" %>
+                <div class="form-group">
+                  <%= f.label :contents, :class => "control-label sr-only" %>
+                  <%= f.text_field :contents, :class => "form-control", placeholder: "What was your aha?" %>
+                </div>
+              <% end -%>
+            </div>
+          </div>
         </li>
       <% end %>
     </ul>
@@ -63,10 +99,15 @@
       <% end %>
 
           <%= f.hidden_field :backlog_id, value: @mission.backlog.id, :class => "form-control" %>
-          <%= f.hidden_field :assigned_to, value: current_user.id, :class => "form-control" %>
       <div class="form-group">
           <div class="col-sm-10">
             <%= f.collection_select :question_id, Question.all, :id, :contents, :class => "form-control" %>
+          </div>
+      </div>
+      <div class="form-group">
+          <div class="col-sm-10">
+          <label for="assigned_to">Assigned to:</label>
+            <%= f.collection_select :assigned_to, User.all, :id, :name, :class => "form-control" %>
           </div>
       </div>
       <div class="form-group">
@@ -75,6 +116,8 @@
         </div>
       </div>
     <% end %>
+
+    <h2>- or -</h2>
 
     <h3>Add new question to the Backlog</h3>
     <%= form_for(@question, :html => { :class => "form-horizontal", :role => "form" }) do |f| %>
@@ -97,13 +140,17 @@
           <%= f.text_field :contents, :class => "form-control" %>
         </div>
       </div>
-      <div class="form-group">
-          <%= f.hidden_field :questionable_id, value: @question.questionable_id, :class => "form-control" %>
-          <%= f.hidden_field :questionable_type, value: @question.questionable_type, :class => "form-control" %>
-      </div>
+      <%= f.hidden_field :questionable_id, value: @question.questionable_id, :class => "form-control" %>
+      <%= f.hidden_field :questionable_type, value: @question.questionable_type, :class => "form-control" %>
       <%= f.fields_for :backlog_item do |backlog_item_fields| %>
           <%= backlog_item_fields.hidden_field :backlog_id, value: @mission.backlog.id %>
           <%= backlog_item_fields.hidden_field :assigned_to, value: current_user.id %>
+          <div class="form-group">
+              <div class="col-sm-10">
+              <label for="assigned_to">Assigned to:</label>
+                <%= backlog_item_fields.collection_select :assigned_to, User.all, :id, :name, :class => "form-control" %>
+              </div>
+          </div>
         <% end %>
       <div class="form-group">
         <div class="col-sm-10">

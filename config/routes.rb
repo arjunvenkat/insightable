@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  resources :insights
+
   resources :backlog_items
 
   resources :backlogs

@@ -28,7 +28,7 @@ class BacklogItemsController < ApplicationController
     @backlog_item = BacklogItem.new(backlog_item_params)
     respond_to do |format|
       if @backlog_item.save
-        format.html { redirect_to @backlog_item, notice: 'Backlog item was successfully created.' }
+        format.html { redirect_to @backlog_item.backlog.mission, notice: 'Backlog item was successfully created.' }
         format.json { render :show, status: :created, location: @backlog_item }
       else
         format.html { render :new }
@@ -42,7 +42,7 @@ class BacklogItemsController < ApplicationController
   def update
     respond_to do |format|
       if @backlog_item.update(backlog_item_params)
-        format.html { redirect_to @backlog_item, notice: 'Backlog item was successfully updated.' }
+        format.html { redirect_to @backlog_item.backlog.mission, notice: 'Backlog item was successfully updated.' }
         format.json { render :show, status: :ok, location: @backlog_item }
       else
         format.html { render :edit }
@@ -56,7 +56,7 @@ class BacklogItemsController < ApplicationController
   def destroy
     @backlog_item.destroy
     respond_to do |format|
-      format.html { redirect_to backlog_items_url, notice: 'Backlog item was successfully destroyed.' }
+      format.html { redirect_to :back, notice: 'Backlog item was successfully destroyed.' }
       format.json { head :no_content }
     end
   end

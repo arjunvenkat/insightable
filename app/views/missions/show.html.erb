@@ -27,18 +27,56 @@
 
 <div class="row">
   <div class="col-md-6">
-    <h2>Questions</h2>
+    <h2>Backlog</h2>
 
     <ul class="list-group">
       <% @mission.backlog.backlog_items.each do |item| %>
         <li class="list-group-item">
           <div><strong><%= item.question.contents %></strong></div>
           <div>Assigned to: <%= User.find(item.assigned_to).name %></div>
+          <div>
+            <%= link_to "edit", edit_backlog_item_path(item)  %> |
+            <%= link_to "destroy", item, method: :delete  %>
+          </div>
+
         </li>
       <% end %>
     </ul>
 
-    <h3>Add new question</h3>
+
+
+  </div>
+  <div class="col-md-6">
+    <h3>Add an existing question to the backlog</h3>
+    <%= form_for(BacklogItem.new, :html => { :class => "form-horizontal", :role => "form" }) do |f| %>
+      <% if @question.errors.any? %>
+        <div class="alert alert-danger alert-dismissable" role="alert">
+          <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+          <h4><%= pluralize(@question.errors.count, "error") %> prohibited this question from being saved:</h4>
+
+          <ul>
+          <% @question.errors.full_messages.each do |msg| %>
+            <li><%= msg %></li>
+          <% end %>
+          </ul>
+        </div>
+      <% end %>
+
+          <%= f.hidden_field :backlog_id, value: @mission.backlog.id, :class => "form-control" %>
+          <%= f.hidden_field :assigned_to, value: current_user.id, :class => "form-control" %>
+      <div class="form-group">
+          <div class="col-sm-10">
+            <%= f.collection_select :question_id, Question.all, :id, :contents, :class => "form-control" %>
+          </div>
+      </div>
+      <div class="form-group">
+        <div class="col-sm-10">
+          <%= f.submit :class => "btn btn-primary" %>
+        </div>
+      </div>
+    <% end %>
+
+    <h3>Add new question to the Backlog</h3>
     <%= form_for(@question, :html => { :class => "form-horizontal", :role => "form" }) do |f| %>
       <% if @question.errors.any? %>
         <div class="alert alert-danger alert-dismissable" role="alert">
@@ -54,7 +92,7 @@
       <% end %>
 
       <div class="form-group">
-        <%= f.label :contents, :class => "col-sm-2 control-label" %>
+        <%= f.label :contents, :class => "control-label sr-only" %>
         <div class="col-sm-10">
           <%= f.text_field :contents, :class => "form-control" %>
         </div>
@@ -68,14 +106,12 @@
           <%= backlog_item_fields.hidden_field :assigned_to, value: current_user.id %>
         <% end %>
       <div class="form-group">
-        <div class="col-sm-offset-2 col-sm-10">
+        <div class="col-sm-10">
           <%= f.submit :class => "btn btn-primary" %>
         </div>
       </div>
     <% end %>
-
   </div>
-  <div class="col-md-6"></div>
 </div>
 
 

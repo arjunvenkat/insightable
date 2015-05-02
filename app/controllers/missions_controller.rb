@@ -12,6 +12,7 @@ class MissionsController < ApplicationController
   def show
     @question = @mission.questions.build
     @insight = @mission.insights.build
+    @environment = Environment.new
   end
 
   # GET /missions/new

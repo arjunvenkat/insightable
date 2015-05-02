@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150428012338) do
+ActiveRecord::Schema.define(version: 20150501211054) do
 
   create_table "backlog_items", force: :cascade do |t|
     t.integer  "backlog_id"
@@ -90,6 +90,18 @@ ActiveRecord::Schema.define(version: 20150428012338) do
     t.text     "goals"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "pictures", force: :cascade do |t|
+    t.integer  "pictureable_id"
+    t.string   "pictureable_type"
+    t.string   "caption"
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+    t.string   "image_url_file_name"
+    t.string   "image_url_content_type"
+    t.integer  "image_url_file_size"
+    t.datetime "image_url_updated_at"
   end
 
   create_table "procedures", force: :cascade do |t|
